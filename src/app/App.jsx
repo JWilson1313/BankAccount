@@ -3,8 +3,12 @@ import Transactions from "../features/transactions/Transactions";
 
 import "./app.css";
 
+import { useProvider } from "react-redux";
+
 // TODO: Import the Redux store and provide it to this component using <Provider>.
+
 export default function App() {
+  const state = useProvider((state) => state);
   return (
     <main>
       <h1>Bank Account</h1>
