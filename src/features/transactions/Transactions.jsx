@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 import { transfer } from "./transactionsSlice";
 import "./transactions.scss";
@@ -8,6 +9,7 @@ import "./transactions.scss";
  */
 export default function Transactions() {
   // TODO: Get the balance from the Redux store using the useSelector hook
+  const value = useSelector((state) => state.Transaction);
   const balance = 0;
 
   const [amountStr, setAmountStr] = useState("0.00");
@@ -21,13 +23,19 @@ export default function Transactions() {
     // It will be either "deposit", "withdraw", or "transfer".
     const action = e.nativeEvent.submitter.name;
 
-    const amount = +amountStr;
+    const amount = Number(amountStr).toFixed(2);
 
     // TODO: Dispatch the appropriate transaction action based on `action`
     if (action === "transfer") {
       // The `transfer` action is dispatched with a payload containing
       // the amount and the recipient.
       dispatch(transfer({ amount, recipient }));
+    }
+    if (action === "deposit"){
+      dispatch(deposit({amount}))
+    }
+    if (action === "withdraw"){
+      dispatch(withdrawal({amount}))
     }
   };
 
